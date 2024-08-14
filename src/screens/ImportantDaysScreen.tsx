@@ -1,21 +1,25 @@
+//import liraries
+import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const NationalInfoScreen = () => {
+// create a component
+const ImportantDaysScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>NationalInfoScreen</Text>
+      <Text>ImportantDaysScreen</Text>
     </View>
   );
 };
 
+// define your styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#2c3e50",
   },
 });
 
 //make this component available to the app
-export default NationalInfoScreen;
+export default ImportantDaysScreen;
