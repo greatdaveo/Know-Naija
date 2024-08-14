@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+  ScrollView,
+} from "react-native";
 import { API_URL } from "@env";
 import { HistoryInfoData } from "../common/HistoryInfoTypes";
 
@@ -16,34 +23,45 @@ const HistoryScreen = () => {
 
         // console.log(result);
         setData(result);
-        setLoading(false);
       } catch (err) {
         console.log("Error fetching data:", err);
-        // setError(err);
+        setError("Failed to load data");
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [setData]);
+  }, []);
 
-  // const { numbers_of_elected_rep_in_political_offices } = data;
+  // console.log(data);
+
+  if (loading) {
+    return (
+      <View style={styles.centered}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.centered}>
+        <Text>{error}</Text>
+      </View>
+    );
+  }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View>
         <FlatList
           data={data?.numbers_of_elected_rep_in_political_offices}
-          keyExtractor={(item) => item}
-          renderItem={({ item }) => (
-            <View>
-              <Text>{item.president}</Text>
-            </View>
-          )}
+          keyExtractor={(item) => item._id}
+          renderItem={data?.numbers_of_elected_rep_in_political_offices}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
